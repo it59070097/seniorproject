@@ -4,13 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start":"pm2-runtime app.js",
+    "start": "pm2-runtime app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "pg-promise": "^9.0.3"
+    "mysql": "^2.17.1"
   }
 }

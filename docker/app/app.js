@@ -1,7 +1,12 @@
 const express = require('express')
-const pgp = require('pg-promise')()
 const app = express()
-const db = pgp('postgres://postgres:example@db:5432/postgres')
+const mysql = require('mysql')
+const connection = mysql.createConnection({
+  host: 'db',
+  user: 'root',
+  password: 'example',
+  database: 'car_api'
+})
 
 app.get('/', (req, res) => res.send('hello pun'));
 
@@ -9,10 +14,12 @@ app.listen(3000, () => {
     console.log('My Rest API running on port 3000!');
 } )
 
-db.one('SELECT * FROM public.cars')
-  .then(function (data) {
-    console.log('DATA:', data.value)
-  })
-  .catch(function (error) {
-    console.log('ERROR:', error)
-  })
+connection.connect()
+
+connection.query('SELECT * FROM car_info', function (err, rows, fields) {
+  if (err) throw err
+
+  console.log('The solution is: ', rows[0].car_brand)
+})
+
+connection.end()
